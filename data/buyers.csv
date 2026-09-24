@@ -1,0 +1,7 @@
+buyer_id,name,buyer_type,location,district,crop,required_quantity_kg,min_quality,max_price_per_kg,required_date
+B001,Pune Fresh Retail,Retailer,Pune,Pune,Onion,550,A,38,2026-09-11
+B002,Green Basket Retail,Retailer,Pune,Pune,Onion,600,B,30,2026-09-10
+B003,Hotel Annapurna,Hotel,Pune,Pune,Tomato,200,A,40,2026-09-10
+B004,Deccan Food Processor,Processor,Pune,Pune,Onion,1000,B,31,2026-09-11
+B005,Pune Vegetable Hub,Bulk Buyer,Pune,Pune,Tomato,500,B,38,2026-09-10
+B006,Ahmednagar Fresh Mart,Retailer,Ahmednagar,Ahmednagar,Onion,500,A,30,2026-09-09

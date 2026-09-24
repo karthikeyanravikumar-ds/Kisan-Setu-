@@ -1,0 +1,23 @@
+{
+  "status": "success",
+  "total": 1,
+  "count": 1,
+  "limit": 50,
+  "offset": 0,
+  "records": [
+    {
+      "state": "Maharashtra",
+      "district": "Nashik",
+      "market": "APMC Ghoti ",
+      "commodity": "Tomato",
+      "variety": "Other",
+      "grade": "Local",
+      "arrival_date": "24/09/2026",
+      "min_price": 2000,
+      "max_price": 2200,
+      "modal_price": 2100
+    }
+  ],
+  "error_message": null,
+  "retrieval_time": "2026-09-24 15:22:22"
+}

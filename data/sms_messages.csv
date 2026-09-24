@@ -1,0 +1,3 @@
+message_id,phone,farmer_id,direction,message,response,timestamp
+SMS001,9000000001,F001,OUTBOUND,PRICE ONION,"Onion price: Min Rs.28/kg, Modal Rs.31/kg, Max Rs.35/kg.",2026-09-07 00:17:25
+SMS002,9000000001,F001,OUTBOUND,PRICE ONION,"Onion price: Min Rs.28/kg, Modal Rs.31/kg, Max Rs.35/kg.",2026-09-07 15:48:34

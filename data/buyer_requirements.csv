@@ -1,0 +1,6 @@
+requirement_id,buyer_id,buyer_name,buyer_type,crop,quantity_kg,minimum_quality,maximum_price_per_kg,delivery_location,required_date,additional_requirements,status,posted_date
+R001,B001,Pune Fresh Retail,Retailer,Onion,0.0,A,32.0,Pune,2026-09-10,,Active,2026-09-07
+BR001,B001,Pune Fresh Retail,Retailer,Onion,550.0,A,33.0,Pune,2026-09-07,fresh and clean produce,Active,2026-09-07
+R002,B001,Pune Fresh Retail,Retailer,Onion,550.0,A,34.0,Pune,2026-09-07,,Active,2026-09-07
+R003,B001,Pune Fresh Retail,Retailer,Onion,550.0,A,34.0,Pune,2026-09-07,,Active,2026-09-07
+R004,B001,Pune Fresh Retail,Retailer,Onion,550.0,A,38.0,Pune,2026-09-11,,Active,2026-09-07

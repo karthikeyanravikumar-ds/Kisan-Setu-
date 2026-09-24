@@ -1,0 +1,76 @@
+{
+  "status": "success",
+  "total": 244485,
+  "count": 5,
+  "limit": 5,
+  "offset": 0,
+  "records": [
+    {
+      "Arrival_Date": "10/07/2010",
+      "Commodity": "Onion",
+      "Commodity_Code": "23",
+      "District": "Thane",
+      "Grade": "FAQ",
+      "Market": "Palghar",
+      "Max_Price": "550",
+      "Min_Price": "550",
+      "Modal_Price": "550",
+      "State": "Maharashtra",
+      "Variety": "Other"
+    },
+    {
+      "Arrival_Date": "12/07/2010",
+      "Commodity": "Onion",
+      "Commodity_Code": "23",
+      "District": "Thane",
+      "Grade": "FAQ",
+      "Market": "Palghar",
+      "Max_Price": "734",
+      "Min_Price": "160",
+      "Modal_Price": "447",
+      "State": "Maharashtra",
+      "Variety": "Other"
+    },
+    {
+      "Arrival_Date": "25/12/2010",
+      "Commodity": "Onion",
+      "Commodity_Code": "23",
+      "District": "Thane",
+      "Grade": "FAQ",
+      "Market": "Palghar",
+      "Max_Price": "1200",
+      "Min_Price": "1200",
+      "Modal_Price": "1200",
+      "State": "Maharashtra",
+      "Variety": "Other"
+    },
+    {
+      "Arrival_Date": "18/10/2010",
+      "Commodity": "Onion",
+      "Commodity_Code": "23",
+      "District": "Thane",
+      "Grade": "FAQ",
+      "Market": "Ulhasnagar",
+      "Max_Price": "2400",
+      "Min_Price": "2000",
+      "Modal_Price": "2100",
+      "State": "Maharashtra",
+      "Variety": "Other"
+    },
+    {
+      "Arrival_Date": "08/12/2010",
+      "Commodity": "Onion",
+      "Commodity_Code": "23",
+      "District": "Thane",
+      "Grade": "FAQ",
+      "Market": "Vasai",
+      "Max_Price": "3800",
+      "Min_Price": "2700",
+      "Modal_Price": "3200",
+      "State": "Maharashtra",
+      "Variety": "Other"
+    }
+  ],
+  "error_message": null,
+  "retrieval_time": "2026-09-24 15:22:15"
+}

@@ -1,0 +1,4 @@
+provider_id,provider_name,service_type,vehicle_type,capacity_kg,cost_per_km,base_cost,location
+L001,Maharashtra Agro Transport,Transport,Mini Truck,1000,28,500,Nashik
+L002,Green Route Logistics,Transport,Medium Truck,2500,35,800,Ahmednagar
+L003,FreshMove Logistics,Transport,Mini Truck,1500,30,600,Nashik

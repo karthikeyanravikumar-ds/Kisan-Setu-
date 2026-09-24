@@ -1,0 +1,47 @@
+{
+  "status": "success",
+  "total": 3,
+  "count": 3,
+  "limit": 50,
+  "offset": 0,
+  "records": [
+    {
+      "state": "Maharashtra",
+      "district": "Pune",
+      "market": "Pune(Pimpri) ",
+      "commodity": "Tomato",
+      "variety": "Local",
+      "grade": "Local",
+      "arrival_date": "24/09/2026",
+      "min_price": 1400,
+      "max_price": 1600,
+      "modal_price": 1500
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Pune",
+      "market": "APMC Pune ",
+      "commodity": "Tomato",
+      "variety": "Local",
+      "grade": "Local",
+      "arrival_date": "24/09/2026",
+      "min_price": 600,
+      "max_price": 1600,
+      "modal_price": 1100
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Pune",
+      "market": "Pune(Moshi) ",
+      "commodity": "Tomato",
+      "variety": "Local",
+      "grade": "Local",
+      "arrival_date": "24/09/2026",
+      "min_price": 800,
+      "max_price": 1000,
+      "modal_price": 900
+    }
+  ],
+  "error_message": null,
+  "retrieval_time": "2026-09-24 15:22:24"
+}

@@ -1,0 +1,13 @@
+date,district,crop,demand_quantity_kg,orders
+2026-09-01,Pune,Onion,3200,18
+2026-09-02,Pune,Onion,3500,20
+2026-09-03,Pune,Onion,3700,22
+2026-09-04,Pune,Onion,3900,24
+2026-09-05,Pune,Onion,4100,26
+2026-09-06,Pune,Onion,4300,28
+2026-09-01,Pune,Tomato,1800,15
+2026-09-02,Pune,Tomato,1950,16
+2026-09-03,Pune,Tomato,2100,18
+2026-09-04,Pune,Tomato,2250,19
+2026-09-05,Pune,Tomato,2400,21
+2026-09-06,Pune,Tomato,2600,23

@@ -1,0 +1,7 @@
+farmer_id,name,district,village,phone,language,farm_size_acres,crop,total_production_kg
+F001,Ramesh Patil,Nashik,Niphad,9000000001,Marathi,4.5,Onion,1200
+F002,Suresh Shinde,Nashik,Lasalgaon,9000000002,Marathi,6.0,Onion,1800
+F003,Sunita Pawar,Nashik,Dindori,9000000003,Marathi,3.5,Tomato,900
+F004,Mahesh Jadhav,Ahmednagar,Rahata,9000000004,Marathi,5.0,Onion,1500
+F005,Anita More,Ahmednagar,Sangamner,9000000005,Marathi,3.0,Tomato,750
+F006,Vijay Kale,Ahmednagar,Kopargaon,9000000006,Hindi,7.0,Onion,2100

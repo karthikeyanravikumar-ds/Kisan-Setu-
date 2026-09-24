@@ -1,0 +1,4 @@
+feedback_id,user_type,user_id,transaction_id,rating,comment
+FB001,Farmer,F001,T001,5,Good buyer matching
+FB002,Buyer,B001,T001,4,Produce quality was good
+FB003,Farmer,F003,T002,5,Payment process was smooth

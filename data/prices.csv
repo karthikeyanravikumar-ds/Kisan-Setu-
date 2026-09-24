@@ -1,0 +1,13 @@
+date,crop,market,district,min_price_per_kg,modal_price_per_kg,max_price_per_kg
+2026-09-01,Onion,Nashik,Nashik,25,28,31
+2026-09-02,Onion,Nashik,Nashik,26,29,32
+2026-09-03,Onion,Nashik,Nashik,26,30,33
+2026-09-04,Onion,Nashik,Nashik,27,30,34
+2026-09-05,Onion,Nashik,Nashik,27,31,34
+2026-09-06,Onion,Nashik,Nashik,28,31,35
+2026-09-01,Tomato,Nashik,Nashik,30,34,38
+2026-09-02,Tomato,Nashik,Nashik,31,35,39
+2026-09-03,Tomato,Nashik,Nashik,32,36,40
+2026-09-04,Tomato,Nashik,Nashik,32,37,41
+2026-09-05,Tomato,Nashik,Nashik,33,38,42
+2026-09-06,Tomato,Nashik,Nashik,34,39,43
