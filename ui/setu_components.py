@@ -786,3 +786,123 @@ def render_setu_footer():
     </footer>
     """
     render_html(html)
+
+
+# ============================================================
+# 17. LEARNING & PERFORMANCE TELEMETRY SECTION
+# ============================================================
+
+def render_learning_performance_section(summary: dict):
+    """
+    Renders the Feedback -> Learning Loop & Performance section.
+    Displays:
+    - Transactions analysed
+    - Feedback received
+    - Match acceptance
+    - Completion rate
+    - Forecast performance
+    - Market realization comparison
+    - Mandatory Governance callout: "Feedback is captured for future model evaluation and improvement."
+    """
+    if not summary:
+        return
+
+    st.subheader("🔄 Learning & Performance")
+    st.caption("Empirical platform learning telemetry & model evaluation loop")
+
+    # 1. Metric Cards Grid
+    col1, col2, col3 = st.columns(3)
+    col4, col5, col6 = st.columns(3)
+
+    tx_cnt = summary.get("transactions_analyzed", 0)
+    fb_cnt = summary.get("feedback_received", 0)
+    match_acc = summary.get("match_acceptance", {}).get("display_text", "Insufficient data")
+    comp_rate = summary.get("completion_rate", {}).get("display_text", "Insufficient data")
+    fc_perf = summary.get("forecast_performance", {}).get("display_text", "Insufficient data")
+    mkt_real = summary.get("market_realization", {}).get("display_text", "Insufficient data")
+
+    with col1:
+        st.markdown(
+            f"""
+            <div style="background: #FFFFFF; border: 1px solid #E5DFD3; border-top: 4px solid #163E2B; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(24,32,27,0.03); margin-bottom: 12px;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #68756C; text-transform: uppercase;">Transactions Analysed</div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: #163E2B; margin: 4px 0;">{tx_cnt if tx_cnt > 0 else 'Insufficient data'}</div>
+                <div style="font-size: 0.78rem; color: #68756C;">Total platform trade volume</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col2:
+        st.markdown(
+            f"""
+            <div style="background: #FFFFFF; border: 1px solid #E5DFD3; border-top: 4px solid #2D6A4F; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(24,32,27,0.03); margin-bottom: 12px;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #68756C; text-transform: uppercase;">Feedback Received</div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: #2D6A4F; margin: 4px 0;">{fb_cnt if fb_cnt > 0 else 'Insufficient data'}</div>
+                <div style="font-size: 0.78rem; color: #68756C;">Farmer & buyer evaluations</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col3:
+        st.markdown(
+            f"""
+            <div style="background: #FFFFFF; border: 1px solid #E5DFD3; border-top: 4px solid #1952B3; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(24,32,27,0.03); margin-bottom: 12px;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #68756C; text-transform: uppercase;">Match Acceptance</div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: #1952B3; margin: 4px 0;">{match_acc}</div>
+                <div style="font-size: 0.78rem; color: #68756C;">Confirmed & in-transit orders</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col4:
+        st.markdown(
+            f"""
+            <div style="background: #FFFFFF; border: 1px solid #E5DFD3; border-top: 4px solid #176536; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(24,32,27,0.03); margin-bottom: 12px;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #68756C; text-transform: uppercase;">Completion Rate</div>
+                <div style="font-size: 1.5rem; font-weight: 800; color: #176536; margin: 4px 0;">{comp_rate}</div>
+                <div style="font-size: 0.78rem; color: #68756C;">Successfully settled deliveries</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col5:
+        st.markdown(
+            f"""
+            <div style="background: #FFFFFF; border: 1px solid #E5DFD3; border-top: 4px solid #E8B83D; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(24,32,27,0.03); margin-bottom: 12px;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #68756C; text-transform: uppercase;">Forecast Performance</div>
+                <div style="font-size: 1.25rem; font-weight: 800; color: #91610A; margin: 4px 0;">{fc_perf}</div>
+                <div style="font-size: 0.78rem; color: #68756C;">Out-of-sample demand error</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    with col6:
+        st.markdown(
+            f"""
+            <div style="background: #FFFFFF; border: 1px solid #E5DFD3; border-top: 4px solid #B85C38; border-radius: 10px; padding: 14px 16px; box-shadow: 0 2px 8px rgba(24,32,27,0.03); margin-bottom: 12px;">
+                <div style="font-size: 0.72rem; font-weight: 700; color: #68756C; text-transform: uppercase;">Market Realization</div>
+                <div style="font-size: 1.25rem; font-weight: 800; color: #B85C38; margin: 4px 0;">{mkt_real}</div>
+                <div style="font-size: 0.78rem; color: #68756C;">Realized vs Mandi benchmark</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    # 2. Governance Callout
+    governance_box = f'''
+    <div style="background: rgba(22, 62, 43, 0.05); border: 1px solid rgba(22, 62, 43, 0.18); border-left: 4px solid #163E2B; border-radius: 8px; padding: 12px 18px; margin-top: 6px; margin-bottom: 12px;">
+        <div style="font-weight: 800; color: #163E2B; font-size: 0.9rem;">
+            🛡️ {summary.get("learning_note", "Feedback is captured for future model evaluation and improvement.")}
+        </div>
+        <div style="font-size: 0.8rem; color: #526058; margin-top: 4px;">
+            AI Governance Policy: Production model weights remain frozen. No automated weight mutations are executed without verified validation benchmarks.
+        </div>
+    </div>
+    '''
+    render_html(governance_box)
+

@@ -25,11 +25,13 @@ from ui.setu_components import (
     render_bharat_market_pulse,
     render_setu_pulse,
     render_weather_intelligence,
+    render_learning_performance_section,
 )
 from ui.charts import (
     create_supply_demand_chart,
     create_mandi_trend_chart,
 )
+from utils.learning_loop import calculate_learning_summary
 from utils.translations import t, get_current_language
 
 # =========================================================
@@ -303,6 +305,21 @@ with chart_col2:
     fig_pr = create_mandi_trend_chart(prices, crop="Onion", market="Nashik")
     if fig_pr:
         st.plotly_chart(fig_pr, use_container_width=True)
+
+st.divider()
+
+# =========================================================
+# 4. LEARNING & PERFORMANCE TELEMETRY
+# =========================================================
+
+learning_summary = calculate_learning_summary(
+    transactions_df=transactions,
+    feedback_df=feedback,
+    produce_df=produce,
+    prices_df=prices,
+    demand_df=demand,
+)
+render_learning_performance_section(learning_summary)
 
 st.divider()
 st.caption(f"ℹ️ {t('admin_footer_caption')}")

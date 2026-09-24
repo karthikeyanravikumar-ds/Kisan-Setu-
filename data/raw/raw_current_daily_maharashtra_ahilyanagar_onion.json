@@ -1,0 +1,23 @@
+{
+  "status": "success",
+  "total": 1,
+  "count": 1,
+  "limit": 50,
+  "offset": 0,
+  "records": [
+    {
+      "state": "Maharashtra",
+      "district": "Ahilyanagar",
+      "market": "APMC Newasa ",
+      "commodity": "Onion",
+      "variety": "Unhali",
+      "grade": "Local",
+      "arrival_date": "24/09/2026",
+      "min_price": 1500,
+      "max_price": 4100,
+      "modal_price": 3700
+    }
+  ],
+  "error_message": null,
+  "retrieval_time": "2026-09-24 17:16:13"
+}

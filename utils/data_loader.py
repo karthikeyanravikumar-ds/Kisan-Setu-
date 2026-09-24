@@ -66,3 +66,14 @@ def load_buyer_requirements():
             "required_date", "additional_requirements", "status", "posted_date"
         ])
     return pd.read_csv(req_file)
+
+
+def load_payments():
+    pay_file = DATA_DIR / "payments.csv"
+    if not pay_file.exists():
+        return pd.DataFrame(columns=[
+            "payment_id", "transaction_id", "buyer_id", "farmer_id",
+            "gross_amount", "logistics_cost", "platform_fee", "net_settlement",
+            "payment_status", "settlement_status", "payment_date", "settlement_date"
+        ])
+    return pd.read_csv(pay_file)

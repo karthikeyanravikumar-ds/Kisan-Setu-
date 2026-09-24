@@ -1,0 +1,17 @@
+payment_id,transaction_id,buyer_id,farmer_id,gross_amount,logistics_cost,platform_fee,net_settlement,payment_status,settlement_status,payment_date,settlement_date
+PAY001,T001,B001,F001,12800.0,6380.0,0.0,6420.0,Payment Received,Settled,2026-09-05,2026-09-05
+PAY002,T002,B003,F003,7800.0,2990.0,0.0,4810.0,Payment Received,Settled,2026-09-05,2026-09-05
+PAY003,T003,B006,F004,15000.0,6380.0,0.0,8620.0,Payment Received,Settlement Pending,2026-09-06,
+PAY004,T004,B001,F001,16000.0,8150.0,0.0,7850.0,Payment Pending,Settlement Pending,,
+PAY005,T005,B002,F004,18000.0,0.0,0.0,18000.0,Payment Pending,Settlement Pending,,
+PAY006,T012,B003,F005,10000.0,2990.0,0.0,7010.0,Payment Received,Settled,2026-09-07,2026-09-07
+PAY007,T006,B001,F001,16000.0,0.0,0.0,16000.0,Payment Pending,Settlement Pending,,
+PAY008,T007,B001,F001,16000.0,0.0,0.0,16000.0,Payment Pending,Settlement Pending,,
+PAY009,T008,B001,F002,22400.0,0.0,0.0,22400.0,Payment Pending,Settlement Pending,,
+PAY010,T009,B002,F001,1500.0,0.0,0.0,1500.0,Payment Pending,Settlement Pending,,
+PAY011,T010,B001,F007,6400.0,0.0,0.0,6400.0,Payment Pending,Settlement Pending,,
+PAY012,T011,B001,F001,16000.0,0.0,0.0,16000.0,Payment Pending,Settlement Pending,,
+PAY013,T013,B006,F007,15000.0,0.0,0.0,15000.0,Payment Pending,Settlement Pending,,
+PAY014,T014,B001,F001,16000.0,0.0,0.0,16000.0,Payment Pending,Settlement Pending,,
+PAY015,T015,B006,F001,15000.0,0.0,0.0,15000.0,Payment Pending,Settlement Pending,,
+PAY016,T016,B001,F007,20900.0,0.0,0.0,20900.0,Payment Pending,Settlement Pending,,

@@ -30,6 +30,7 @@ from ai.pricing import get_mandi_market_benchmark
 from utils.demand_data import get_regional_demand_series
 from utils.buyer_intelligence import calculate_buyer_intelligence
 from utils.quality_intelligence import calculate_quality_intelligence
+from logistics.partner_manager import get_partner_for_transaction
 from maps.route_map import display_optimized_route_map
 from utils.translations import t, get_current_language
 
@@ -780,6 +781,28 @@ else:
                         st.rerun()
                 elif status == "Completed":
                     st.markdown(f"<span style='color:#176536; font-weight:700;'>✓ {t('payment_settled')}</span>", unsafe_allow_html=True)
+
+            # Logistics Partner Status Callout
+            b_assigned_partner = get_partner_for_transaction(tx_id)
+            if b_assigned_partner:
+                st.markdown(
+                    f"""
+                    <div style="background: rgba(22, 62, 43, 0.04); border: 1px solid rgba(22, 62, 43, 0.14); border-radius: 8px; padding: 8px 12px; margin-top: 8px; font-size: 0.82rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px;">
+                        <span>🚛 <b>Logistics Partner:</b> {b_assigned_partner.get('partner_name')} ({b_assigned_partner.get('vehicle', 'Mini Truck')})</span>
+                        <span style="font-weight: 700; color: #163E2B;">Status: <code>{b_assigned_partner.get('status', 'Assigned')}</code> · Freight: ₹{float(b_assigned_partner.get('estimated_freight', 0)):,.0f}</span>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
+            else:
+                st.markdown(
+                    f"""
+                    <div style="background: #FFFBF5; border: 1px dashed #E5DFD3; border-radius: 8px; padding: 6px 12px; margin-top: 8px; font-size: 0.80rem; color: #8A7A64;">
+                        🚚 <i>Awaiting logistics partner assignment</i>
+                    </div>
+                    """,
+                    unsafe_allow_html=True,
+                )
 
 st.divider()
 

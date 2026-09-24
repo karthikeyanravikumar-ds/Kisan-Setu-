@@ -1,0 +1,5 @@
+assignment_id,transaction_id,partner_id,vehicle_type,pickup_location,destination,quantity_kg,distance_km,estimated_freight,status,assigned_at,pickup_date,updated_at
+PA001,T001,LP001,Mini Truck,"Niphad, Nashik",Pune,400.0,210.0,6380.0,In Transit,2026-09-05,2026-09-05,2026-09-24
+PA002,T002,LP003,Pickup 4x4,"Rahata, Ahmednagar",Pune,200.0,120.0,2990.0,Delivered,2026-09-05,2026-09-05,
+PA003,T003,LP001,Mini Truck,"Niphad, Nashik",Pune,500.0,210.0,6380.0,In Transit,2026-09-06,2026-09-06,
+PA004,T004,LP002,Medium Eicher,"Niphad, Nashik",Pune,500.0,210.0,8150.0,In Transit,2026-09-06,2026-09-06,

@@ -1,0 +1,7 @@
+partner_id,partner_name,vehicle_type,capacity_kg,base_location,service_regions,cost_per_km,base_cost,availability,rating,contact_phone
+LP001,Sahyadri Agro Transporters,Mini Truck,1200,Nashik,"Nashik, Pune, Ahmednagar, Mumbai",28.0,500.0,Available,4.8,+91 98220 44101
+LP002,Godavari Express Logistics,Medium Eicher,2500,Nashik,"Nashik, Pune, Mumbai, Thane",35.0,800.0,Available,4.7,+91 98220 44102
+LP003,Deccan Rural Haulage,Pickup 4x4,600,Ahmednagar,"Ahmednagar, Pune, Nashik",22.0,350.0,Available,4.9,+91 98220 44103
+LP004,Kisan Setu Fleet Unit 1,Refrigerated Van,1500,Pune,"Pune, Mumbai, Nashik, Satara",38.0,900.0,Busy,4.6,+91 98220 44104
+LP005,Western Ghats Freight,Heavy Carrier,5000,Pune,"Pune, Mumbai, Nashik, Ahmednagar",52.0,1500.0,Available,4.5,+91 98220 44105
+LP006,Niphad Agro Carrier,Tata Ace (Chhota Hathi),750,Nashik,"Nashik, Ahmednagar, Pune",24.0,400.0,Available,4.8,+91 98220 44106

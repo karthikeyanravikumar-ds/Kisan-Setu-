@@ -8,6 +8,18 @@
     {
       "state": "Maharashtra",
       "district": "Pune",
+      "market": "APMC Pune ",
+      "commodity": "Onion",
+      "variety": "Local",
+      "grade": "Local",
+      "arrival_date": "24/09/2026",
+      "min_price": 1000,
+      "max_price": 4700,
+      "modal_price": 2850
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Pune",
       "market": "Pune(Moshi) ",
       "commodity": "Onion",
       "variety": "Local",
@@ -33,13 +45,13 @@
       "state": "Maharashtra",
       "district": "Pune",
       "market": "APMC Pune ",
-      "commodity": "Onion",
-      "variety": "Local",
+      "commodity": "Onion Green",
+      "variety": "Other",
       "grade": "Local",
       "arrival_date": "24/09/2026",
-      "min_price": 1000,
-      "max_price": 4700,
-      "modal_price": 2850
+      "min_price": 5,
+      "max_price": 15,
+      "modal_price": 10
     },
     {
       "state": "Maharashtra",
@@ -52,20 +64,8 @@
       "min_price": 15,
       "max_price": 20,
       "modal_price": 18
-    },
-    {
-      "state": "Maharashtra",
-      "district": "Pune",
-      "market": "APMC Pune ",
-      "commodity": "Onion Green",
-      "variety": "Other",
-      "grade": "Local",
-      "arrival_date": "24/09/2026",
-      "min_price": 5,
-      "max_price": 15,
-      "modal_price": 10
     }
   ],
   "error_message": null,
-  "retrieval_time": "2026-09-24 15:23:11"
+  "retrieval_time": "2026-09-24 17:17:55"
 }

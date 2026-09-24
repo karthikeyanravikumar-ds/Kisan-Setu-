@@ -1,33 +1,21 @@
 {
   "status": "success",
-  "total": 7,
-  "count": 7,
+  "total": 9,
+  "count": 9,
   "limit": 50,
   "offset": 0,
   "records": [
     {
       "state": "Maharashtra",
       "district": "Nashik",
-      "market": "APMC Pimpalgaon Baswant ",
+      "market": "APMC Manmad ",
       "commodity": "Onion",
       "variety": "Unhali",
       "grade": "Local",
       "arrival_date": "24/09/2026",
-      "min_price": 2200,
-      "max_price": 5480,
-      "modal_price": 4300
-    },
-    {
-      "state": "Maharashtra",
-      "district": "Nashik",
-      "market": "Lasalgaon(Niphad) ",
-      "commodity": "Onion",
-      "variety": "Unhali",
-      "grade": "Local",
-      "arrival_date": "24/09/2026",
-      "min_price": 1500,
-      "max_price": 4400,
-      "modal_price": 4050
+      "min_price": 1000,
+      "max_price": 4444,
+      "modal_price": 4000
     },
     {
       "state": "Maharashtra",
@@ -40,6 +28,30 @@
       "min_price": 1500,
       "max_price": 5400,
       "modal_price": 3851
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Nashik",
+      "market": "APMC Satana ",
+      "commodity": "Onion",
+      "variety": "Unhali",
+      "grade": "Local",
+      "arrival_date": "24/09/2026",
+      "min_price": 905,
+      "max_price": 4755,
+      "modal_price": 3800
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Nashik",
+      "market": "Lasalgaon(Vinchur) ",
+      "commodity": "Onion",
+      "variety": "Unhali",
+      "grade": "Local",
+      "arrival_date": "24/09/2026",
+      "min_price": 1200,
+      "max_price": 4690,
+      "modal_price": 4000
     },
     {
       "state": "Maharashtra",
@@ -68,28 +80,40 @@
     {
       "state": "Maharashtra",
       "district": "Nashik",
-      "market": "Lasalgaon(Vinchur) ",
+      "market": "APMC Pimpalgaon Baswant ",
+      "commodity": "Onion",
+      "variety": "Unhali",
+      "grade": "Local",
+      "arrival_date": "24/09/2026",
+      "min_price": 2200,
+      "max_price": 5480,
+      "modal_price": 4300
+    },
+    {
+      "state": "Maharashtra",
+      "district": "Nashik",
+      "market": "APMC Chandwad ",
       "commodity": "Onion",
       "variety": "Unhali",
       "grade": "Local",
       "arrival_date": "24/09/2026",
       "min_price": 1200,
-      "max_price": 4690,
-      "modal_price": 4000
+      "max_price": 4790,
+      "modal_price": 3930
     },
     {
       "state": "Maharashtra",
       "district": "Nashik",
-      "market": "APMC Manmad ",
+      "market": "Lasalgaon(Niphad) ",
       "commodity": "Onion",
       "variety": "Unhali",
       "grade": "Local",
       "arrival_date": "24/09/2026",
-      "min_price": 1000,
-      "max_price": 4444,
-      "modal_price": 4000
+      "min_price": 1500,
+      "max_price": 4400,
+      "modal_price": 4050
     }
   ],
   "error_message": null,
-  "retrieval_time": "2026-09-24 15:23:05"
+  "retrieval_time": "2026-09-24 17:17:49"
 }

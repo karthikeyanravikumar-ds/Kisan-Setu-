@@ -1,0 +1,398 @@
+{
+  "Phase 1": {
+    "compilation_success": true,
+    "missing_key_files": [],
+    "status": "PASS"
+  },
+  "Phase 2": {
+    "status": "PASS",
+    "pages": {
+      "admin_dashboard.py": "PASS",
+      "buyer.py": "PASS",
+      "buyer_requirements.py": "PASS",
+      "consumer.py": "PASS",
+      "digital_mandi.py": "PASS",
+      "farmer.py": "PASS",
+      "farmer_orders.py": "PASS",
+      "feedback.py": "PASS",
+      "government_schemes.py": "PASS",
+      "impact_analytics.py": "PASS",
+      "list_produce.py": "PASS",
+      "logistics.py": "PASS",
+      "sms_services.py": "PASS",
+      "transactions.py": "PASS"
+    }
+  },
+  "Phase 3": {
+    "status": "PARTIAL",
+    "csv_files_checked": [
+      "buyers.csv",
+      "buyer_requirements.csv",
+      "consumer_orders.csv",
+      "demand.csv",
+      "farmers.csv",
+      "feedback.csv",
+      "logistics.csv",
+      "logistics_assignments.csv",
+      "logistics_partners.csv",
+      "partner_assignments.csv",
+      "payments.csv",
+      "prices.csv",
+      "produce.csv",
+      "schemes.csv",
+      "sms_messages.csv",
+      "transactions.csv"
+    ],
+    "issues": [
+      "transactions.csv: Orphan farmer_ids: {'F007'}"
+    ]
+  },
+  "Phase 6": {
+    "status": "PASS",
+    "standard_matches_count": 4,
+    "zero_qty_handled": true,
+    "unknown_crop_handled": true,
+    "empty_buyers_handled": true
+  },
+  "Phase 7": {
+    "status": "PASS",
+    "benchmark_result": {
+      "commodity": "Onion",
+      "district": "Nashik",
+      "market": "Lasalgaon(Niphad)",
+      "arrival_date": "2026-09-24",
+      "variety": "Unhali",
+      "grade": "Local",
+      "modal_price_per_kg": 40.5,
+      "min_price_per_kg": 15.0,
+      "max_price_per_kg": 44.0,
+      "modal_price": 4050.0,
+      "min_price": 1500.0,
+      "max_price": 4400.0,
+      "is_live": true,
+      "source": "data.gov.in Current Daily API",
+      "source_unit": "Rs/Quintal",
+      "display_unit": "Rs/kg",
+      "disclaimer": "Mandi modal price is an indicative regional market benchmark derived from APMC market arrivals and does not represent a guaranteed farmer purchase price."
+    },
+    "modal_price_per_kg": 40.5,
+    "is_converted_properly_to_kg": true
+  },
+  "Phase 8": {
+    "status": "PASS",
+    "pune_onion_fc": 4748.0,
+    "pune_tomato_fc": 2890.0,
+    "nashik_tx_fc": 3358.0,
+    "insufficient_history_handled": true
+  },
+  "Phase 9": {
+    "status": "PASS",
+    "buyer_net": 16000.0,
+    "mandi_net": 14000.0,
+    "net_difference": 2000.0,
+    "is_true_net_to_net": true
+  },
+  "Phase 11": {
+    "status": "PASS",
+    "partners_loaded": 6,
+    "matches_count": 5,
+    "stepper_renders": true
+  },
+  "Phase 12": {
+    "status": "PASS",
+    "breakdown_calc": {
+      "gross_amount": 15000.0,
+      "logistics_cost": 3000.0,
+      "platform_fee": 150.0,
+      "net_settlement": 11850.0,
+      "disclaimer": "Prototype payment ledger \u2014 no real money is processed."
+    },
+    "sample_payment": {
+      "payment_id": "PAY001",
+      "transaction_id": "T001",
+      "buyer_id": "B001",
+      "farmer_id": "F001",
+      "gross_amount": 12800.0,
+      "logistics_cost": 6380.0,
+      "platform_fee": 0.0,
+      "net_settlement": 6420.0,
+      "payment_status": "Payment Received",
+      "settlement_status": "Settled",
+      "payment_date": "2026-09-05",
+      "settlement_date": "2026-09-05",
+      "disclaimer": "Prototype payment ledger \u2014 no real money is processed."
+    }
+  },
+  "Phase 14": {
+    "status": "PASS",
+    "summary": {
+      "status": "success",
+      "transactions_analyzed": 16,
+      "feedback_received": 3,
+      "match_acceptance": {
+        "total_matches": 16,
+        "accepted_matches": 14,
+        "rejected_matches": 0,
+        "pending_matches": 2,
+        "acceptance_rate_pct": 87.5,
+        "display_text": "87.5%"
+      },
+      "completion_rate": {
+        "total_transactions": 16,
+        "completed_transactions": 2,
+        "in_transit_transactions": 7,
+        "completion_rate_pct": 12.5,
+        "display_text": "12.5%"
+      },
+      "farmer_feedback": {
+        "count": 2,
+        "avg_rating": 5.0,
+        "display_rating": "5.0 / 5.0",
+        "comments": [
+          "Good buyer matching",
+          "Payment process was smooth"
+        ]
+      },
+      "buyer_feedback": {
+        "count": 1,
+        "avg_rating": 4.0,
+        "display_rating": "4.0 / 5.0",
+        "comments": [
+          "Produce quality was good"
+        ]
+      },
+      "all_feedback": [
+        {
+          "feedback_id": "FB001",
+          "user_type": "Farmer",
+          "user_id": "F001",
+          "transaction_id": "T001",
+          "rating": 5.0,
+          "comment": "Good buyer matching"
+        },
+        {
+          "feedback_id": "FB002",
+          "user_type": "Buyer",
+          "user_id": "B001",
+          "transaction_id": "T001",
+          "rating": 4.0,
+          "comment": "Produce quality was good"
+        },
+        {
+          "feedback_id": "FB003",
+          "user_type": "Farmer",
+          "user_id": "F003",
+          "transaction_id": "T002",
+          "rating": 5.0,
+          "comment": "Payment process was smooth"
+        }
+      ],
+      "market_realization": {
+        "transactions_compared": 16,
+        "avg_realized_price": 32.69,
+        "avg_mandi_benchmark": 30.67,
+        "avg_premium_per_kg": 2.02,
+        "avg_premium_pct": 6.6,
+        "display_text": "+\u20b92.02/kg (+6.6%) vs Mandi",
+        "spread_details": [
+          {
+            "transaction_id": "T001",
+            "crop": "Onion",
+            "realized_price": 32.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 2.17,
+            "difference_pct": 7.3
+          },
+          {
+            "transaction_id": "T002",
+            "crop": "Tomato",
+            "realized_price": 39.0,
+            "mandi_modal_price": 36.5,
+            "difference_per_kg": 2.5,
+            "difference_pct": 6.8
+          },
+          {
+            "transaction_id": "T003",
+            "crop": "Onion",
+            "realized_price": 30.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 0.17,
+            "difference_pct": 0.6
+          },
+          {
+            "transaction_id": "T004",
+            "crop": "Onion",
+            "realized_price": 32.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 2.17,
+            "difference_pct": 7.3
+          },
+          {
+            "transaction_id": "T005",
+            "crop": "Onion",
+            "realized_price": 30.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 0.17,
+            "difference_pct": 0.6
+          },
+          {
+            "transaction_id": "T006",
+            "crop": "Onion",
+            "realized_price": 32.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 2.17,
+            "difference_pct": 7.3
+          },
+          {
+            "transaction_id": "T007",
+            "crop": "Onion",
+            "realized_price": 32.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 2.17,
+            "difference_pct": 7.3
+          },
+          {
+            "transaction_id": "T008",
+            "crop": "Onion",
+            "realized_price": 32.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 2.17,
+            "difference_pct": 7.3
+          },
+          {
+            "transaction_id": "T009",
+            "crop": "Onion",
+            "realized_price": 30.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 0.17,
+            "difference_pct": 0.6
+          },
+          {
+            "transaction_id": "T010",
+            "crop": "Onion",
+            "realized_price": 32.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 2.17,
+            "difference_pct": 7.3
+          },
+          {
+            "transaction_id": "T011",
+            "crop": "Onion",
+            "realized_price": 32.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 2.17,
+            "difference_pct": 7.3
+          },
+          {
+            "transaction_id": "T012",
+            "crop": "Tomato",
+            "realized_price": 40.0,
+            "mandi_modal_price": 36.5,
+            "difference_per_kg": 3.5,
+            "difference_pct": 9.6
+          },
+          {
+            "transaction_id": "T013",
+            "crop": "Onion",
+            "realized_price": 30.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 0.17,
+            "difference_pct": 0.6
+          },
+          {
+            "transaction_id": "T014",
+            "crop": "Onion",
+            "realized_price": 32.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 2.17,
+            "difference_pct": 7.3
+          },
+          {
+            "transaction_id": "T015",
+            "crop": "Onion",
+            "realized_price": 30.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 0.17,
+            "difference_pct": 0.6
+          },
+          {
+            "transaction_id": "T016",
+            "crop": "Onion",
+            "realized_price": 38.0,
+            "mandi_modal_price": 29.83,
+            "difference_per_kg": 8.17,
+            "difference_pct": 27.4
+          }
+        ]
+      },
+      "forecast_performance": {
+        "series_evaluated": 2,
+        "avg_mae": 45.0,
+        "avg_rmse": 51.03,
+        "avg_mape": 1.25,
+        "display_text": "MAE: 45.0 kg, MAPE: 1.2%",
+        "series_results": [
+          {
+            "district": "Pune",
+            "crop": "Onion",
+            "status": "success",
+            "n_total": 6,
+            "n_train": 4,
+            "n_test": 2,
+            "mae": 65.0,
+            "rmse": 66.71,
+            "mape": 1.54
+          },
+          {
+            "district": "Pune",
+            "crop": "Tomato",
+            "status": "success",
+            "n_total": 6,
+            "n_train": 4,
+            "n_test": 2,
+            "mae": 25.0,
+            "rmse": 35.36,
+            "mape": 0.96
+          },
+          {
+            "district": "Nashik",
+            "crop": "Onion",
+            "status": "insufficient_history",
+            "n_total": 3,
+            "mae": null,
+            "rmse": null,
+            "mape": null
+          }
+        ]
+      },
+      "quality_feedback": {
+        "total_produce_lots": 22,
+        "grade_distribution": {
+          "A": 18,
+          "B": 4
+        },
+        "quality_feedback_mentions": 1,
+        "display_text": "Grade A: 18, Grade B: 4 (1 qualitative comments)"
+      },
+      "learning_note": "Feedback is captured for future model evaluation and improvement.",
+      "model_retraining_governance": "Production model weights preserved. No automated parameter mutation."
+    }
+  },
+  "Phase 18": {
+    "status": "PASS",
+    "issues": []
+  },
+  "Phase 20": {
+    "status": "PASS",
+    "trace": {
+      "1_Produce_Listing": "PASS: 500kg Onion Grade A @ Niphad, Nashik",
+      "2_AI_Matching": "PASS: Top buyer Ahmednagar Fresh Mart (83.0% match)",
+      "3_Mandi_Benchmark": "PASS: \u20b940.5/kg (Lasalgaon(Niphad))",
+      "4_Setu_Intelligence": "PASS: Buyer Net \u20b910020.0 vs Mandi Net \u20b915270.0 (Spread: +\u20b9-10.5/kg)",
+      "5_Quality_Intelligence": "PASS: Status 'Requirement met'",
+      "6_Logistics_Matching": "PASS: Matched partner Deccan Rural Haulage (Freight: \u20b94970.0)",
+      "7_Payment_Settlement": "PASS: Gross \u20b915000.0 - Freight \u20b94970.0 = Net \u20b910030.0",
+      "8_Learning_Loop": "PASS: Total Analyzed: 16, Acceptance: 87.5%"
+    }
+  }
+}

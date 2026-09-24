@@ -27,7 +27,9 @@ from ui.setu_components import (
     render_brand_header,
     render_bharat_market_pulse,
     render_setu_pulse,
+    render_learning_performance_section,
 )
+from utils.learning_loop import calculate_learning_summary
 from ui.charts import apply_editorial_layout, CHART_NEEM, CHART_HALDI, CHART_TERRACOTTA
 
 # =========================================================
@@ -162,4 +164,20 @@ col_s1.metric(t("verified_farmers_reg"), f"{len(farmers):,}", f"+12 {t('this_wee
 col_s2.metric(t("inst_retail_buyers"), f"{len(buyers):,}", f"+4 {t('active_bids')}")
 col_s3.metric(t("harvest_volume_listed"), f"{produce['quantity_kg'].sum():,.0f} kg", t("grade_ab_verified"))
 
+st.divider()
+
+# =========================================================
+# LEARNING & PERFORMANCE TELEMETRY
+# =========================================================
+
+learning_summary = calculate_learning_summary(
+    transactions_df=transactions,
+    feedback_df=feedback,
+    produce_df=produce,
+    prices_df=prices,
+    demand_df=demand,
+)
+render_learning_performance_section(learning_summary)
+
+st.divider()
 st.caption(f"ℹ️ {t('impact_footer_caption')}")

@@ -26,6 +26,7 @@ from ai.pricing import get_mandi_market_benchmark
 from utils.demand_data import build_transaction_demand_history
 from utils.setu_intelligence import calculate_setu_intelligence
 from utils.quality_intelligence import calculate_quality_intelligence
+from logistics.partner_manager import get_partner_for_transaction
 from maps.route_map import display_optimized_route_map
 from utils.translations import t, get_current_language
 from gemini.explanation import explain_buyer_match
@@ -854,6 +855,44 @@ with st.container(border=True):
     l1.metric(t("estimated_distance_label"), f"{distance_km:.0f} km")
     l2.metric(t("estimated_freight_label"), f"₹{transport_cost:,.0f}", f"-₹{transport_cost/produce_qty:.2f}/kg", delta_color="inverse")
     l3.metric(t("net_realization_label"), f"₹{net_realization:,.0f}", f"₹{effective_price:.2f}/kg net")
+
+    # LOGISTICS FULFILMENT SUMMARY
+    # Check if there is a transaction associated with this produce lot
+    matching_produce_id = str(selected_produce.get("produce_id", selected_pid if "selected_pid" in locals() else ""))
+    matching_txs = transactions_df[transactions_df["produce_id"].astype(str) == matching_produce_id] if matching_produce_id else pd.DataFrame()
+    assigned_partner_info = None
+    if not matching_txs.empty:
+        active_tx_id = str(matching_txs.iloc[-1]["transaction_id"])
+        assigned_partner_info = get_partner_for_transaction(active_tx_id)
+
+    st.markdown("<hr style='margin: 10px 0; border: none; border-top: 1px dashed #E5DFD3;' />", unsafe_allow_html=True)
+    st.markdown("**🚚 LOGISTICS FULFILMENT**")
+    
+    if assigned_partner_info:
+        lf1, lf2 = st.columns(2)
+        with lf1:
+            st.markdown(f"**📍 Pickup Location:** {assigned_partner_info.get('pickup_location', f'{lot_location}, {lot_district}')}")
+            st.markdown(f"**🏢 Buyer Destination:** {assigned_partner_info.get('destination', buyer_loc_val)}")
+            st.markdown(f"**🚚 Distance:** {float(assigned_partner_info.get('distance_km', distance_km)):.0f} km")
+        with lf2:
+            st.markdown(f"**💰 Estimated Freight:** ₹{float(assigned_partner_info.get('estimated_freight', transport_cost)):,.0f}")
+            st.markdown(f"**🚛 Assigned Partner:** {assigned_partner_info.get('partner_name')} ({assigned_partner_info.get('vehicle', 'Mini Truck')})")
+            st.markdown(f"**📦 Delivery Status:** `🟢 {assigned_partner_info.get('status', 'Assigned')}`")
+    else:
+        st.markdown(
+            f"""
+            <div style="background: #FFFDF8; border: 1px solid #E5DFD3; border-radius: 8px; padding: 10px 14px; font-size: 0.84rem; color: #68756C;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>📍 <b>Pickup:</b> {lot_location}, {lot_district} ➔ 🏢 <b>Destination:</b> {buyer_loc_val} ({distance_km:.0f} km)</span>
+                    <span style="font-weight: 700; color: #B45309;">⏳ Awaiting logistics assignment</span>
+                </div>
+                <div style="margin-top: 4px; font-size: 0.80rem;">
+                    Estimated Transport Freight: ₹{transport_cost:,.0f} (₹{transport_cost/produce_qty:.2f}/kg) · <i>Will be coordinated once match is accepted.</i>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
     

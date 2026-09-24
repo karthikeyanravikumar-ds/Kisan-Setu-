@@ -1,5 +1,5 @@
 transaction_id,farmer_id,buyer_id,produce_id,quantity_kg,price_per_kg,total_value,status,date
-T001,F001,B001,P001,400.0,32.0,12800.0,Completed,2026-09-05
+T001,F001,B001,P001,400.0,32.0,12800.0,In Transit,2026-09-05
 T002,F003,B003,P003,200.0,39.0,7800.0,Completed,2026-09-05
 T003,F004,B006,P004,500.0,30.0,15000.0,In Transit,2026-09-06
 T004,F001,B001,P001,500.0,32.0,16000.0,In Transit,2026-09-06
