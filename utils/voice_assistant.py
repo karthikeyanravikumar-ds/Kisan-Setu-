@@ -605,7 +605,7 @@ def process_query(query_text: str, user_profile: dict = None, language: str = No
 # 5. STREAMLIT UI COMPONENT (KISAN BOL ASSISTANT PANEL)
 # ============================================================
 
-def render_kisan_bol(user_role: str = "Farmer", user_profile: dict = None):
+def render_kisan_bol(user_role: str = "Farmer", user_profile: dict = None, key_prefix: str = "kb"):
     """
     Renders the unified Kisan Bol voice & conversational assistant.
     Supports Web Speech API for voice recognition, SpeechSynthesis TTS,
@@ -670,7 +670,7 @@ def render_kisan_bol(user_role: str = "Farmer", user_profile: dict = None):
     # Render quick action chips in a horizontal flow
     cols = st.columns(len(demo_commands))
     for i, (label, cmd_text) in enumerate(demo_commands):
-        if cols[i].button(label, key=f"kb_demo_{i}", use_container_width=True):
+        if cols[i].button(label, key=f"{key_prefix}_demo_{i}", use_container_width=True):
             res = process_query(cmd_text, user_profile=user_profile, language=active_lang)
             st.session_state["kisan_bol_history"].append(res)
             st.rerun()
@@ -678,9 +678,14 @@ def render_kisan_bol(user_role: str = "Farmer", user_profile: dict = None):
     # ------------------------------------------------------------
     # Browser Web Speech API Microphone Component
     # ------------------------------------------------------------
+    mic_btn_id = f"{key_prefix}-mic-btn"
+    mic_icon_id = f"{key_prefix}-mic-icon"
+    mic_text_id = f"{key_prefix}-mic-text"
+    func_name = f"startKisanBolVoice_{key_prefix}".replace("-", "_")
+
     mic_html = f"""
     <div style="display: flex; align-items: center; justify-content: center; margin: 10px 0;">
-        <button id="kb-mic-btn" onclick="startKisanBolVoice()" style="
+        <button id="{mic_btn_id}" onclick="{func_name}()" style="
             background: linear-gradient(135deg, #163E2B 0%, #2D6A4F 100%);
             color: #FFFFFF;
             border: none;
@@ -695,16 +700,16 @@ def render_kisan_bol(user_role: str = "Farmer", user_profile: dict = None):
             gap: 8px;
             transition: all 0.2s ease;
         ">
-            <span id="kb-mic-icon">🎙️</span>
-            <span id="kb-mic-text">{t('kisan_bol_mic_btn')}</span>
+            <span id="{mic_icon_id}">🎙️</span>
+            <span id="{mic_text_id}">{t('kisan_bol_mic_btn')}</span>
         </button>
     </div>
 
     <script>
-    function startKisanBolVoice() {{
-        const btn = document.getElementById('kb-mic-btn');
-        const icon = document.getElementById('kb-mic-icon');
-        const text = document.getElementById('kb-mic-text');
+    function {func_name}() {{
+        const btn = document.getElementById('{mic_btn_id}');
+        const icon = document.getElementById('{mic_icon_id}');
+        const text = document.getElementById('{mic_text_id}');
         
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {{
@@ -760,12 +765,13 @@ def render_kisan_bol(user_role: str = "Farmer", user_profile: dict = None):
     # ------------------------------------------------------------
     # Text Fallback Input
     # ------------------------------------------------------------
-    with st.form(key="kisan_bol_form", clear_on_submit=True):
+    with st.form(key=f"{key_prefix}_form", clear_on_submit=True):
         col_in, col_btn = st.columns([4, 1])
         user_query = col_in.text_input(
             label="Kisan Bol Question",
             label_visibility="collapsed",
-            placeholder=t('kisan_bol_text_placeholder')
+            placeholder=t('kisan_bol_text_placeholder'),
+            key=f"{key_prefix}_text_input"
         )
         submitted = col_btn.form_submit_button(f"🔍 {t('kisan_bol_ask_btn')}", use_container_width=True)
         if submitted and user_query:
@@ -779,7 +785,7 @@ def render_kisan_bol(user_role: str = "Farmer", user_profile: dict = None):
     if st.session_state["kisan_bol_history"]:
         st.divider()
         # TTS Audio Toggle
-        tts_enabled = st.checkbox(f"{t('kisan_bol_tts_label')}", value=True, key="kb_tts_toggle")
+        tts_enabled = st.checkbox(f"{t('kisan_bol_tts_label')}", value=True, key=f"{key_prefix}_tts_toggle")
         
         # Display latest responses first or in chronological order
         for item in reversed(st.session_state["kisan_bol_history"][-3:]):
@@ -818,6 +824,6 @@ def render_kisan_bol(user_role: str = "Farmer", user_profile: dict = None):
             st.components.v1.html(tts_html, height=0)
 
         # Clear History Button
-        if st.button(f"🗑️ {t('kisan_bol_clear_history')}", key="kb_clear", use_container_width=True):
+        if st.button(f"🗑️ {t('kisan_bol_clear_history')}", key=f"{key_prefix}_clear", use_container_width=True):
             st.session_state["kisan_bol_history"] = []
             st.rerun()

@@ -274,7 +274,7 @@ if matches.empty:
     if st.session_state.get("show_kisan_bol_panel", False):
         st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
         with st.expander(f"🎙️ {t('kisan_bol_title')} — {t('kisan_bol_caption')}", expanded=True):
-            render_kisan_bol(user_role="Farmer", user_profile=st.session_state)
+            render_kisan_bol(user_role="Farmer", user_profile=st.session_state, key_prefix="farmer_empty_kb")
     st.stop()
 
 # ============================================================
@@ -511,7 +511,7 @@ with btn_col_b:
 if st.session_state.get("show_kisan_bol_panel", False):
     st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
     with st.expander(f"🎙️ {t('kisan_bol_title')} — {t('kisan_bol_caption')}", expanded=True):
-        render_kisan_bol(user_role="Farmer", user_profile=st.session_state)
+        render_kisan_bol(user_role="Farmer", user_profile=st.session_state, key_prefix="farmer_hero_kb")
 
 st.markdown("<div style='height: 14px;'></div>", unsafe_allow_html=True)
 

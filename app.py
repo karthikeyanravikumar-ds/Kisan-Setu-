@@ -461,7 +461,7 @@ with st.sidebar:
 
         # 🎙️ KISAN BOL DEDICATED ASSISTANT PANEL
         with st.expander(f"🎙️ {t('kisan_bol_title')}", expanded=False):
-            render_kisan_bol(user_role=user_role, user_profile=st.session_state)
+            render_kisan_bol(user_role=user_role, user_profile=st.session_state, key_prefix="sidebar_kb")
 
         # ⚡ PRESENTATION & COMPONENT NAVIGATOR
         with st.expander(f"⚡ {t('presentation_nav_title')}", expanded=False):

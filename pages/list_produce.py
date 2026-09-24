@@ -14,6 +14,8 @@ from ai.quality_assistance import (
     analyze_produce_quality,
     demo_quality_assessment,
 )
+from ai.matching import find_matches
+from utils.data_loader import load_buyers
 from utils.translations import t, get_current_language
 from ui.theme import inject_custom_theme
 from ui.setu_components import (
@@ -128,6 +130,84 @@ def load_produce_data() -> pd.DataFrame:
         ]
     )
 
+
+def execute_lot_deletion(del_pid: str) -> bool:
+    """Safely removes lot from produce.csv and associated photo directory."""
+    try:
+        fresh_df = load_produce_data()
+        fresh_df = fresh_df[fresh_df["produce_id"].astype(str).str.strip() != str(del_pid).strip()]
+        fresh_df.to_csv(PRODUCE_FILE, index=False)
+        
+        # Cleanup uploaded photos if any
+        lot_upload_dir = UPLOAD_DIR / str(del_pid).strip()
+        if lot_upload_dir.exists() and lot_upload_dir.is_dir():
+            for f in lot_upload_dir.iterdir():
+                try:
+                    f.unlink()
+                except Exception:
+                    pass
+            try:
+                lot_upload_dir.rmdir()
+            except Exception:
+                pass
+        return True
+    except Exception as ex:
+        st.error(f"Error deleting produce lot: {ex}")
+        return False
+
+
+if hasattr(st, "dialog"):
+    @st.dialog(f"🗑️ {t('confirm_deletion_title')}")
+    def show_delete_confirmation_modal(del_pid: str):
+        fresh_df = load_produce_data()
+        del_matches = fresh_df[fresh_df["produce_id"].astype(str).str.strip() == str(del_pid).strip()]
+        if del_matches.empty:
+            st.warning(f"Lot #{del_pid} not found or already deleted.")
+            if st.button(t("cancel"), use_container_width=True, key=f"modal_cancel_empty_{del_pid}"):
+                st.session_state["produce_view_mode"] = "list"
+                st.session_state["selected_produce_id"] = None
+                st.session_state["delete_confirm_produce_id"] = None
+                st.rerun()
+            return
+
+        del_lot = del_matches.iloc[0]
+        has_active, active_txs = check_active_transactions(del_pid)
+
+        if has_active:
+            st.error(f"⚠️ **{t('cannot_delete')}**: {t('active_transaction_warn')}")
+            st.caption(f"Linked Active Orders: {len(active_txs)} | Status: {active_txs[0].get('status', 'Active')}")
+            if st.button(f"✕ {t('cancel')}", use_container_width=True, key=f"modal_cancel_active_{del_pid}"):
+                st.session_state["delete_confirm_produce_id"] = None
+                st.rerun()
+        else:
+            st.warning(f"⚠️ **{t('confirm_deletion_title')}**")
+            st.markdown(
+                t(
+                    "crop_quantity_summary",
+                    crop=del_lot.get("crop", "Unknown"),
+                    qty=f"{float(del_lot.get('quantity_kg', 0)):,.0f}",
+                    lot_id=del_pid,
+                )
+            )
+            st.markdown(f"*{t('confirm_deletion_warning')}*")
+
+            dc1, dc2 = st.columns(2)
+            with dc1:
+                if st.button(f"🗑 {t('delete_lot_btn')}", type="primary", use_container_width=True, key=f"dialog_confirm_del_{del_pid}"):
+                    if execute_lot_deletion(del_pid):
+                        st.session_state["produce_view_mode"] = "list"
+                        st.session_state["selected_produce_id"] = None
+                        st.session_state["delete_confirm_produce_id"] = None
+                        if hasattr(st, "toast"):
+                            st.toast(t("lot_deleted", lot_id=del_pid), icon="🗑️")
+                        st.success(t("lot_deleted", lot_id=del_pid))
+                        st.rerun()
+            with dc2:
+                if st.button(t("cancel"), use_container_width=True, key=f"dialog_cancel_del_{del_pid}"):
+                    st.session_state["delete_confirm_produce_id"] = None
+                    st.rerun()
+
+
 # ============================================================
 # HEADER & MARKET PULSE
 # ============================================================
@@ -147,6 +227,7 @@ if not str(current_user_id).startswith("F"):
     current_user_id = "F001"
 
 produce_df = load_produce_data()
+buyers_df = load_buyers()
 
 # ============================================================
 # ROUTING: VIEW / EDIT / LIST
@@ -169,6 +250,14 @@ if view_mode == "view" and selected_id:
             st.rerun()
     else:
         lot = lot_match.iloc[0]
+        
+        # Calculate dynamic AI match for this specific lot
+        lot_dict = lot.to_dict() if isinstance(lot, pd.Series) else lot
+        matched_buyers = find_matches(lot_dict, buyers_df)
+        if not matched_buyers.empty:
+            dynamic_passport_score = int(round(float(matched_buyers.iloc[0].get("match_score", 85))))
+        else:
+            dynamic_passport_score = 75
         
         top_col1, top_col2 = st.columns([1, 4])
         with top_col1:
@@ -226,7 +315,7 @@ if view_mode == "view" and selected_id:
                 crop=str(lot.get("crop", "")),
                 harvest_date=str(lot.get("available_date", date.today())),
                 grade=str(lot.get("quality_grade", "A")),
-                match_score=94,
+                match_score=dynamic_passport_score,
                 logistics_route=f"{district_val} ➔ Highway Aggregation Hub",
             )
             
@@ -240,9 +329,12 @@ if view_mode == "view" and selected_id:
                     st.rerun()
             with b_col2:
                 if st.button(f"🗑 {t('delete')} #{lot['produce_id']}", type="secondary", use_container_width=True):
-                    st.session_state["delete_confirm_produce_id"] = str(lot["produce_id"])
-                    st.session_state["produce_view_mode"] = "list"
-                    st.rerun()
+                    if hasattr(st, "dialog"):
+                        show_delete_confirmation_modal(str(lot["produce_id"]))
+                    else:
+                        st.session_state["delete_confirm_produce_id"] = str(lot["produce_id"])
+                        st.session_state["produce_view_mode"] = "list"
+                        st.rerun()
 
 # ------------------------------------------------------------
 # 2. EDIT HARVEST LOT [ ✏️ EDIT ]
@@ -438,44 +530,46 @@ else:
         # Check if deletion confirmation dialog is triggered
         del_pid = st.session_state.get("delete_confirm_produce_id")
         if del_pid:
-            del_matches = produce_df[produce_df["produce_id"].astype(str).str.strip() == str(del_pid).strip()]
-            if not del_matches.empty:
-                del_lot = del_matches.iloc[0]
-                has_active, active_txs = check_active_transactions(del_pid)
-                
-                with st.container(border=True):
-                    if has_active:
-                        st.error(f"⚠️ **{t('cannot_delete')}**: {t('active_transaction_warn')}")
-                        st.caption(f"Linked Active Orders: {len(active_txs)} | Status: {active_txs[0].get('status', 'Active')}")
-                        if st.button(f"✕ {t('cancel')}", use_container_width=True):
-                            st.session_state["delete_confirm_produce_id"] = None
-                            st.rerun()
-                    else:
-                        st.warning(f"⚠️ **{t('confirm_deletion_title')}**")
-                        st.markdown(
-                            t(
-                                "crop_quantity_summary",
-                                crop=del_lot.get("crop", "Unknown"),
-                                qty=f"{float(del_lot.get('quantity_kg', 0)):,.0f}",
-                                lot_id=del_pid,
+            if hasattr(st, "dialog"):
+                show_delete_confirmation_modal(del_pid)
+                st.session_state["delete_confirm_produce_id"] = None
+            else:
+                del_matches = produce_df[produce_df["produce_id"].astype(str).str.strip() == str(del_pid).strip()]
+                if not del_matches.empty:
+                    del_lot = del_matches.iloc[0]
+                    has_active, active_txs = check_active_transactions(del_pid)
+                    
+                    with st.container(border=True):
+                        if has_active:
+                            st.error(f"⚠️ **{t('cannot_delete')}**: {t('active_transaction_warn')}")
+                            st.caption(f"Linked Active Orders: {len(active_txs)} | Status: {active_txs[0].get('status', 'Active')}")
+                            if st.button(f"✕ {t('cancel')}", use_container_width=True):
+                                st.session_state["delete_confirm_produce_id"] = None
+                                st.rerun()
+                        else:
+                            st.warning(f"⚠️ **{t('confirm_deletion_title')}**")
+                            st.markdown(
+                                t(
+                                    "crop_quantity_summary",
+                                    crop=del_lot.get("crop", "Unknown"),
+                                    qty=f"{float(del_lot.get('quantity_kg', 0)):,.0f}",
+                                    lot_id=del_pid,
+                                )
                             )
-                        )
-                        st.markdown(f"*{t('confirm_deletion_warning')}*")
-                        
-                        dc1, dc2 = st.columns(2)
-                        with dc1:
-                            if st.button(f"🗑 {t('delete_lot_btn')}", type="primary", use_container_width=True):
-                                # Remove row from produce_df
-                                produce_df = produce_df[produce_df["produce_id"].astype(str).str.strip() != str(del_pid).strip()]
-                                produce_df.to_csv(PRODUCE_FILE, index=False)
-                                st.session_state["delete_confirm_produce_id"] = None
-                                st.success(t("lot_deleted", lot_id=del_pid))
-                                st.rerun()
-                        with dc2:
-                            if st.button(t("cancel"), use_container_width=True):
-                                st.session_state["delete_confirm_produce_id"] = None
-                                st.rerun()
-            st.divider()
+                            st.markdown(f"*{t('confirm_deletion_warning')}*")
+                            
+                            dc1, dc2 = st.columns(2)
+                            with dc1:
+                                if st.button(f"🗑 {t('delete_lot_btn')}", type="primary", use_container_width=True):
+                                    if execute_lot_deletion(del_pid):
+                                        st.session_state["delete_confirm_produce_id"] = None
+                                        st.success(t("lot_deleted", lot_id=del_pid))
+                                        st.rerun()
+                            with dc2:
+                                if st.button(t("cancel"), use_container_width=True):
+                                    st.session_state["delete_confirm_produce_id"] = None
+                                    st.rerun()
+                st.divider()
 
         # Farmer Lots Filtering
         farmer_lots = produce_df[
@@ -586,19 +680,52 @@ else:
                         """
                         render_html(info_html)
 
-                        # AI Market Match preview (prominent match %, secondary spread)
-                        match_pill_html = f"""
-                        <div style="background: rgba(22, 62, 43, 0.06); border: 1px solid rgba(22, 62, 43, 0.16); border-radius: 8px; padding: 6px 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-                            <div style="display: flex; align-items: center; gap: 8px;">
-                                <span style="font-weight: 800; color: #163E2B; font-size: 0.84rem;">🤝 {t('ai_match_badge')}:</span>
-                                <span style="background: #163E2B; color: #FFFFFF; font-weight: 800; font-size: 0.78rem; padding: 2px 8px; border-radius: 9999px;">94% MATCH</span>
-                                <span style="font-size: 0.80rem; color: #374151; font-weight: 600;">(Pune Wholesaler)</span>
+                        # AI Market Match preview (dynamic matching per lot)
+                        lot_row_dict = row.to_dict() if isinstance(row, pd.Series) else row
+                        lot_matches = find_matches(lot_row_dict, buyers_df)
+                        
+                        if not lot_matches.empty:
+                            top_b = lot_matches.iloc[0]
+                            m_score = int(round(float(top_b.get("match_score", 0))))
+                            b_name = str(top_b.get("buyer_name", "Regional Buyer"))
+                            b_dist = str(top_b.get("district", top_b.get("location", "Hub")))
+                            b_offer = float(top_b.get("max_price_per_kg", price_val))
+                            diff = round(b_offer - price_val, 2)
+                            
+                            if diff > 0:
+                                spread_str = f"+₹{diff:.2f}/kg {t('potential_spread')}"
+                                spread_color = "#2D6A4F"
+                            elif diff == 0:
+                                spread_str = f"₹{b_offer:.2f}/kg Benchmark Offer"
+                                spread_color = "#1E4620"
+                            else:
+                                spread_str = f"₹{b_offer:.2f}/kg Market Offer"
+                                spread_color = "#78350F"
+
+                            match_pill_html = f"""
+                            <div style="background: rgba(22, 62, 43, 0.06); border: 1px solid rgba(22, 62, 43, 0.16); border-radius: 8px; padding: 6px 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-weight: 800; color: #163E2B; font-size: 0.84rem;">🤝 {t('ai_match_badge')}:</span>
+                                    <span style="background: #163E2B; color: #FFFFFF; font-weight: 800; font-size: 0.78rem; padding: 2px 8px; border-radius: 9999px;">{m_score}% MATCH</span>
+                                    <span style="font-size: 0.80rem; color: #374151; font-weight: 600;">({b_name} · {b_dist})</span>
+                                </div>
+                                <div style="font-size: 0.80rem; font-weight: 700; color: {spread_color};">
+                                    {spread_str}
+                                </div>
                             </div>
-                            <div style="font-size: 0.80rem; font-weight: 700; color: #2D6A4F;">
-                                +₹2.60/kg {t('potential_spread')}
+                            """
+                        else:
+                            match_pill_html = f"""
+                            <div style="background: rgba(244, 246, 240, 0.9); border: 1px solid #c2c9bb; border-radius: 8px; padding: 6px 12px; margin-bottom: 10px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                                <div style="display: flex; align-items: center; gap: 8px;">
+                                    <span style="font-weight: 800; color: #556052; font-size: 0.84rem;">🤝 {t('ai_match_badge')}:</span>
+                                    <span style="background: #667085; color: #FFFFFF; font-weight: 700; font-size: 0.75rem; padding: 2px 8px; border-radius: 9999px;">AWAITING BUYER DEMAND</span>
+                                </div>
+                                <div style="font-size: 0.80rem; font-weight: 600; color: #667085;">
+                                    Market Discovery Active
+                                </div>
                             </div>
-                        </div>
-                        """
+                            """
                         render_html(match_pill_html)
 
                         # Action Buttons
@@ -615,8 +742,11 @@ else:
                                 st.rerun()
                         with btn_col3:
                             if st.button(f"🗑 {t('delete')}", key=f"btn_del_{pid}", type="secondary", use_container_width=True):
-                                st.session_state["delete_confirm_produce_id"] = pid
-                                st.rerun()
+                                if hasattr(st, "dialog"):
+                                    show_delete_confirmation_modal(pid)
+                                else:
+                                    st.session_state["delete_confirm_produce_id"] = pid
+                                    st.rerun()
 
     # ========================================================
     # TAB 2: CREATE NEW LOT

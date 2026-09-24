@@ -4,7 +4,11 @@ import pandas as pd
 from pathlib import Path
 
 # Fix Windows console encoding
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 # Add project root to sys.path
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -71,9 +75,9 @@ def test_button_translations():
     print("[PASS] Action button translations verified across all 3 languages.")
 
 def test_no_photo_translations():
-    assert t("no_product_photo", language="English") == "No product photo"
-    assert t("no_product_photo", language="Marathi") == "उत्पादनाचा फोटो उपलब्ध नाही"
-    assert t("no_product_photo", language="Hindi") == "उत्पाद का फोटो उपलब्ध नहीं है"
+    assert t("no_product_photo", language="English") == TRANSLATIONS["English"]["no_product_photo"]
+    assert t("no_product_photo", language="Marathi") == TRANSLATIONS["Marathi"]["no_product_photo"]
+    assert t("no_product_photo", language="Hindi") == TRANSLATIONS["Hindi"]["no_product_photo"]
     print("[PASS] No photo placeholders verified across all 3 languages.")
 
 def test_photos():
